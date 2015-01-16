@@ -1,0 +1,12 @@
+{
+    "_type":"component",
+    "_component":"timeline",
+    "attributes":[
+        {
+            "_id":"string",
+            "_parentId":"string",
+            "title":"textInput",
+            "body":"textarea"
+        }
+    ]
+}

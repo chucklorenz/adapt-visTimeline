@@ -1,0 +1,27 @@
+{
+  "name": "adapt-timeline",
+  "version": "1.1.3",
+  "homepage": "https://github.com/darylhedley/adapt-timeline",
+  "authors": [
+    "Daryl Hedley <darylhedley@hotmail.com>"
+  ],
+  "displayName": "Text",
+  "component": "text",
+  "description": "A simple core contributed text component",
+  "main": "/js/adapt-timeline.js",
+  "keywords": [
+    "adapt-plugin",
+    "adapt-component"
+  ],
+  "license": "GPLv3",
+  "_release": "1.1.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.1.3",
+    "commit": "65e4f69073ba4cd69559a2372ce057e6ea2e0d79"
+  },
+  "_source": "git://github.com/adaptlearning/adapt-timeline.git",
+  "_target": "~1.1.3",
+  "_originalSource": "adapt-timeline",
+  "_direct": true
+}
