@@ -7,15 +7,18 @@
  */
 define(function(require) {
 
-    //TODO Add navigation buttons as a default
-
     var ComponentView = require('coreViews/componentView');
     var Adapt = require('coreJS/adapt');
     var vis = require('components/adapt-visTimeline/js/vis-timeline_3_9_1');
     //var moment = require('components/adapt-visTimeline/js/moment.min');
     //var itemTemplate = Handlebars.templates['ex_visTimelineItem'];
+    var myTimeline;
 
     var VisTimeline = ComponentView.extend({
+
+        events: {
+            'click .visTimeline-controls': 'onNavigationClicked'
+        },
 
         preRender: function() {
             // Checks to see if the text should be reset on revisit
@@ -52,7 +55,7 @@ define(function(require) {
 
         loadModelData: function(container, data) {
             this.validateDataItems(data);
-            var myTimeline = new vis.Timeline(container, data);
+            myTimeline = new vis.Timeline(container, data);
             this.validateConfigOpts(data, myTimeline);
             this.validateGroups(myTimeline);
         },
@@ -189,6 +192,24 @@ define(function(require) {
                 });
                 timeline.setGroups(groups);
             }
+        },
+
+        onNavigationClicked: function(event) {
+            event.preventDefault();
+            if ($(event.currentTarget).hasClass('visTimeline-control-right')) {
+                this.moveTimeline(-0.2);
+            } else if ($(event.currentTarget).hasClass('visTimeline-control-left')) {
+                this.moveTimeline(0.2);
+            }
+        },
+
+        moveTimeline: function (percentage) {
+            var range = myTimeline.getWindow();
+            var interval = range.end - range.start;
+            myTimeline.setWindow({
+                start: range.start.valueOf() - interval * percentage,
+                end: range.end.valueOf() - interval * percentage
+            })
         },
 
         // Used to check if the text should reset on revisit

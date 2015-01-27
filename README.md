@@ -149,8 +149,8 @@ This component has not been tested against the standard Adapt browser specificat
 
 ##To Do
 
-- Add navigation buttons.
 - Rework LESS to match Adapt standards.
+- Review accessibility.
 
 ##Licenses
 
