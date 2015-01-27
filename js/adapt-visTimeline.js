@@ -51,10 +51,10 @@ define(function(require) {
         },
 
         loadModelData: function(container, data) {
-            this.validateItemsForVisTimeline(data);
+            this.validateDataItems(data);
             var myTimeline = new vis.Timeline(container, data);
-            this.validateConfigOptsForVisTimeline(data, myTimeline);
-            this.validateGroupsForVisTimeline(myTimeline);
+            this.validateConfigOpts(data, myTimeline);
+            this.validateGroups(myTimeline);
         },
 
         loadExternalData: function(container, url) {
@@ -63,11 +63,11 @@ define(function(require) {
                 url: url,
                 context: this,
                 success: function (data) {
-                    this.validateItemsForVisTimeline(data);
+                    this.validateDataItems(data);
                     var items = new vis.DataSet(data);
                     myTimeline = new vis.Timeline(container, items);
-                    this.validateConfigOptsForVisTimeline(data, myTimeline);
-                    this.validateGroupsForVisTimeline(myTimeline);
+                    this.validateConfigOpts(data, myTimeline);
+                    this.validateGroups(myTimeline);
                 },
                 error: function (err) {
                     console.log('Error', err);
@@ -81,7 +81,7 @@ define(function(require) {
             });
         },
 
-        validateItemsForVisTimeline: function(items) {
+        validateDataItems: function(items) {
             //Vis.js documentation says these properties are not required:
             var optionalItems = ['classname', 'end', 'group', 'id', 'style', 'subgroup', 'title'];
             // check model items for any of vis.js's optional properties
@@ -99,7 +99,7 @@ define(function(require) {
             });
         },
 
-        validateConfigOptsForVisTimeline: function(items, timeline) {
+        validateConfigOpts: function(items, timeline) {
             var configOptions = this.model.get('_options') || {};
             var optsHasTemplate = false;
             for(var option in configOptions) {
@@ -145,7 +145,7 @@ define(function(require) {
             return template;
         },
 
-        validateGroupsForVisTimeline: function(timeline) {
+        validateGroups: function(timeline) {
             //console.log('before groups is validated:');
             //var dataCopy = jQuery.extend(true, {}, groups);
             //console.log(dataCopy);
