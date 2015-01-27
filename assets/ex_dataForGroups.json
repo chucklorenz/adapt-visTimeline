@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "content": "Round of 16"
+    },
+    {
+        "id": 2,
+        "content": "Quarter-Finals"
+    },
+    {
+        "id": 3,
+        "content": "Semi-Finals"
+    },
+    {
+        "id": 4,
+        "content": "Final"
+    }
+]

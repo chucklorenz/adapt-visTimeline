@@ -1,24 +1,34 @@
 /*
-* adapt-timeline
-* License - http://github.com/adaptlearning/adapt_framework/blob/master/LICENSE
-* Maintainers - Daryl Hedley <darylhedley@hotmail.com>, Brian Quinn <brian@learningpool.com>
-*/
+ * adapt-timeline
+ * License - http://github.com/adaptlearning/adapt_framework/blob/master/LICENSE
+ * Maintainers - Daryl Hedley <darylhedley@hotmail.com>, Brian Quinn <brian@learningpool.com>
+ */
 define(function(require) {
+
+    //TODO-clorenz Add Group functionality a la configOptions; then refactor loadXXXData functions
+    //TODO-clorenz Add navigation buttons as a default
 
     var ComponentView = require('coreViews/componentView');
     var Adapt = require('coreJS/adapt');
     //var vis = require('components/adapt-timeline/js/vis/dist/vis.min'); // works alone but is bloated
     var vis = require('components/adapt-timeline/js/vis-timeline'); // Contains moment, but I can't figure out how to call it. Consider rebundling to remove moment.
     //var moment = require('components/adapt-timeline/js/moment.min');
+    //var itemTemplate = Handlebars.templates['ex_visTimelineItem'];
 
     var VisTimeline = ComponentView.extend({
-        
+
+        preRender: function() {
+            // Checks to see if the text should be reset on revisit
+            this.checkIfResetOnRevisit();
+        },
+
         postRender: function() {
             this.buildTimeline();
             this.setReadyStatus();
 
             // Check if instruction or body is set, otherwise force completion
-            var cssSelector = this.$('.component-instruction').length > 0 ? '.component-instruction' 
+            var cssSelector = this.$('.component-instruction').length > 0
+                ? '.component-instruction'
                 : (this.$('.component-body').length > 0 ? '.component-body' : null);
 
             if (!cssSelector) {
@@ -30,50 +40,61 @@ define(function(require) {
         },
 
         buildTimeline: function() {
+            //build container, options, data, groups
+            var container = document.getElementById('visualization'); // code fails if jQuery is used here
             var modelItems = this.model.get('_items');
-            this.validateItemsForVisTimeline(modelItems);
-            var container = document.getElementById('visualization'); // line 57 fails if jQuery is used here
-            //console.log(container);
-            //console.log(this.$('#visualization'));
-            //var testMoment = moment('2013-04-20');
-            //console.log(testMoment);
-
-            /*var data = new vis.DataSet([
-                {id: 1, content: 'item 1', start: moment('2013-04-20')},
-                {id: 2, content: 'item 2', start: moment('2013-04-14')},
-                {id: 3, content: 'item 3', start: moment('2013-04-18')},
-                {id: 4, content: 'item 4', start: moment('2013-04-16'), end: moment('2013-04-19')},
-                {id: 5, content: 'item 5', start: moment('2013-04-25')},
-                {id: 6, content: 'item 6', start: moment('2013-04-27')}
-            ]);*/
-
-            /*var data = new vis.DataSet([
-                {id: 1, content: 'item 1', start: '2013-04-20'},
-                {id: 2, content: 'item 2', start: '2013-04-14'},
-                {id: 3, content: 'item 3', start: '2013-04-18'},
-                {id: 4, content: 'item 4', start: '2013-04-16', end: '2013-04-19'},
-                {id: 5, content: 'item 5', start: '2013-04-25'},
-                {id: 6, content: 'item 6', start: '2013-04-27'}
-                */
-
-            // Configuration for the Timeline
-            var options = {
-                width: '100%',
-                height: '300px',
-                margin: {
-                    item: 20
-                }
-            };
-
-            if (this.model.has('_data-url') && this.model.get('_data-url')!=='') {
-                //console.log(this.model.get('_data-url'));
-                this.loadExternalData(container, this.model.get('_data-url'), options);
+            //this.validateItemsForVisTimeline(modelItems);
+            /*var options = this.model.has('_options')
+             ? this.validateOptionsForVisTimeline(this.model.get('_options')) //parameter must be moved into function
+             : undefined;*/
+            /*var groups = this.model.has('_groups')
+             ? this.validateGroupsForVisTimeline() //parameter must be moved into function
+             : undefined;*/
+            if (this.model.has('_items-url') && this.model.get('_items-url')!=='') {
+                this.loadExternalData(container, this.model.get('_items-url'));
             } else {
-                this.loadModelData(container, modelItems, options);
+                this.loadModelData(container, modelItems);
             }
+
         },
 
-        validateItemsForVisTimeline: function (items) {
+
+        loadModelData: function(container, data) {
+            this.validateItemsForVisTimeline(data);
+            /*var options = this.validateConfigOptsForVisTimeline(data);
+             var myTimeline = new vis.Timeline(container, data, options);
+             this.validateGroupsForVisTimeline(myTimeline);*/
+
+            var myTimeline = new vis.Timeline(container, data);
+            this.validateConfigOptsForVisTimeline(data, myTimeline);
+            this.validateGroupsForVisTimeline(myTimeline);
+        },
+
+        loadExternalData: function(container, url) {
+            // load data via an ajax request. When the data is in, load the timeline
+            $.ajax({
+                url: url,
+                context: this,
+                success: function (data) {
+                    this.validateItemsForVisTimeline(data);
+                    var items = new vis.DataSet(data);
+                    myTimeline = new vis.Timeline(container, items);
+                    this.validateConfigOptsForVisTimeline(data, myTimeline);
+                    this.validateGroupsForVisTimeline(myTimeline);
+                },
+                error: function (err) {
+                    console.log('Error', err);
+                    if (err.status === 0) {
+                        alert('Failed to load data.json.\nPlease run this example on a server.');
+                    }
+                    else {
+                        alert('Failed to load data.json.');
+                    }
+                }
+            });
+        },
+
+        validateItemsForVisTimeline: function(items) {
             //Vis.js documentation says these properties are not required:
             var optionalItems = ['classname', 'end', 'group', 'id', 'style', 'subgroup', 'title'];
             // check model items for any of vis.js's optional properties
@@ -91,54 +112,121 @@ define(function(require) {
             });
         },
 
-        loadExternalData: function(container, url, options) {
-            // load data via an ajax request. When the data is in, load the timeline
-            $.ajax({
-                url: url,
-                success: function (data) {
-                    // hide the "loading..." message
-                    //this.$('#data-loading').style.display = 'none';
-                    // DOM element where the Timeline will be attached
-                    //var container = document.getElementById('visualization'); // line XX fails if jQuery is used here
-                    // Create a DataSet (allows two way data-binding)
-                    var items = new vis.DataSet(data);
-                    // Create a Timeline
-                    var timeline = new vis.Timeline(container, items, options);
-                },
-                error: function (err) {
-                    console.log('Error', err);
-                    if (err.status === 0) {
-                        alert('Failed to load data.json.\nPlease run this example on a server.');
-                    }
-                    else {
-                        alert('Failed to load data.json.');
-                    }
+        validateConfigOptsForVisTimeline: function(items, timeline) {
+            var configOptions = this.model.get('_options') || {};
+            var optsHasTemplate = false;
+            for(var option in configOptions) {
+                if (configOptions.hasOwnProperty(option) && configOptions[option] == '') {
+                    //console.log("To be deleted Key: "+option+"; value: "+configOptions[option]);
+                    delete configOptions[option];
                 }
-            });
+                if (configOptions.hasOwnProperty(option) && option === 'template') {
+                    //template only from configOpts:
+                    //configOptions[option] = Handlebars.templates[configOptions[option]];
+
+                    //template from configOpts unless item.template exists:
+                    configOptions[option] = this.getItemTemplate(items, configOptions[option]);
+                    optsHasTemplate = true;
+                }
+            }
+            //TODO-clorenz What if _options doesn't exist? What if _options does exist but _options.template does not exist?
+            if(_.isEmpty(configOptions)) {
+                console.log('configOptions doesn\'t exist');
+                configOptions['template'] = this.getItemTemplate(items, configOptions[option]);
+            }
+
+            //if(!optsHasTemplate) {
+            //  var opts = this.model.get('_options');
+            //opts['template'] = '';
+            //}
+            timeline.setOptions(configOptions);
         },
 
-        loadModelData: function (container, data, options) {
-            //var data = new vis.DataSet(data);
-            /*var data = new vis.DataSet();
-            _.each(this.model.get('items'), function(item, index) {
-                *//*data.add({
-                    id: index + 1,
-                    //group: group,
-                    content: ' <span style="color:#97B0F8;">' + item.content + '</span>',
-                    start: item.start,
-                    type: 'box'
-                });*//*
-                data.add(item);
-            });*/
-
-            /*var options = {
-                width: '100%',
-                height: '300px',
-                margin: {
-                    item: 20
+        getItemTemplate: function(items, templateFromConfigOpts) {
+            var template = function (item) {
+                if(item.template) {
+                    var template = Handlebars.templates[item.template];
+                    return template(item);
+                } else if(templateFromConfigOpts !== "" && templateFromConfigOpts !== undefined) {
+                    var template = Handlebars.templates[templateFromConfigOpts];
+                    return template(item);
+                } else if(item.content !== undefined) {
+                    return item.content;
+                } else {
+                    return;
                 }
-            };*/
-            var timeline = new vis.Timeline(container, data, options);
+            }
+            return template;
+        },
+
+        validateGroupsForVisTimeline: function(timeline) {
+            //console.log('before groups is validated:');
+            //var dataCopy = jQuery.extend(true, {}, groups);
+            //console.log(dataCopy);
+
+            //Vis.js documentation says these properties are not required:
+            var optionalItems = ['classname', 'style', 'subgroupOrder', 'title'];
+
+            if (this.model.has('_groups-url') && this.model.get('_groups-url')!=='') {
+                // load data via an ajax request. When the data is in, load the timeline
+                $.ajax({
+                    url: this.model.get('_groups-url'),
+                    context: this,
+                    success: function (data) {
+                        console.log('before data is validated:');
+                        var dataCopy = jQuery.extend(true, {}, data);
+                        console.log(dataCopy);
+                        _.each(data, function (group) {
+                            // delete empty properties before they are passed to vis.js to prevent errors (e.g., NaN).
+                            _.each(optionalItems, function (optItem) {
+                                if (group.hasOwnProperty(optItem) && group[optItem] == '') {
+                                    delete group[optItem];
+                                }
+                            });
+                        });
+                        console.log('after data is validated:');
+                        console.log(data);
+                        timeline.setGroups(data);
+                    },
+                    error: function (err) {
+                        console.log('Error', err);
+                        if (err.status === 0) {
+                            alert('Failed to load data.json.\nPlease run this example on a server.');
+                        }
+                        else {
+                            alert('Failed to load data.json.');
+                        }
+                    }
+                });
+                return;
+            }
+
+            if (this.model.has('_groups')) {
+                groups = this.model.get('_groups');
+                _.each(groups, function (group) {
+                    // delete empty properties before they are passed to vis.js to prevent errors (e.g., NaN).
+                    _.each (optionalItems, function(optItem) {
+                        if (group.hasOwnProperty(optItem) && group[optItem] == '') {
+                            delete group[optItem];
+                        }
+                    });
+                });
+                timeline.setGroups(groups);
+            }
+
+        },
+
+        // Used to check if the text should reset on revisit
+        checkIfResetOnRevisit: function() {
+            var isResetOnRevisit = this.model.get('_isResetOnRevisit');
+
+            // If reset is enabled set defaults
+            if (isResetOnRevisit) {
+                this.model.set({
+                    _isEnabled: true,
+                    _isComplete: false
+                });
+            }
         },
 
         inview: function(event, visible, visiblePartX, visiblePartY) {
@@ -152,17 +240,15 @@ define(function(require) {
                     this._isVisibleBottom = true;
                 }
 
-                if (this._isVisibleTop && this._isVisibleBottom) {                   
+                if (this._isVisibleTop && this._isVisibleBottom) {
                     this.$(this.model.get('cssSelector')).off('inview');
                     this.setCompletionStatus();
                 }
             }
         }
-        
+
     });
-    
+
     Adapt.register("visTimeline", VisTimeline);
 
-    return VisTimeline;
-    
 });
