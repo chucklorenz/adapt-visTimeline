@@ -1,4 +1,11 @@
-<div class="timeline-inner component-inner">
+<div class="visTimeline-inner component-inner">
     {{> component this}}
-    <div id="visualization" class="timeline-widget component-widget"></div>
+    <div id="visualization" class="visTimeline-widget component-widget">
+        <a href="#" class="visTimeline-controls visTimeline-control-left" role="button" aria-label="{{_accessibility._ariaLabels.previous}}">
+            <div class="icon icon-controls-left"></div>
+        </a>
+        <a href="#" class="visTimeline-controls visTimeline-control-right" role="button" aria-label="{{_accessibility._ariaLabels.next}}">
+            <div class="icon icon-controls-right"></div>
+        </a>
+    </div>
 </div>
