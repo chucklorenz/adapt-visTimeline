@@ -7,12 +7,12 @@
  */
 define(function(require) {
 
-    //TODO-clorenz Add navigation buttons as a default
+    //TODO Add navigation buttons as a default
 
     var ComponentView = require('coreViews/componentView');
     var Adapt = require('coreJS/adapt');
-    var vis = require('components/adapt-visTimeline/js/vis-timeline_3_9_1'); // Contains moment, but I can't figure out how to call it. Consider rebundling to remove moment.
-    //var moment = require('components/adapt-timeline/js/moment.min');
+    var vis = require('components/adapt-visTimeline/js/vis-timeline_3_9_1');
+    //var moment = require('components/adapt-visTimeline/js/moment.min');
     //var itemTemplate = Handlebars.templates['ex_visTimelineItem'];
 
     var VisTimeline = ComponentView.extend({
@@ -103,28 +103,18 @@ define(function(require) {
             var configOptions = this.model.get('_options') || {};
             var optsHasTemplate = false;
             for(var option in configOptions) {
-                if (configOptions.hasOwnProperty(option) && configOptions[option] == '') {
+                if (configOptions.hasOwnProperty(option) && configOptions[option] === '') {
                     delete configOptions[option];
                 }
                 if (configOptions.hasOwnProperty(option) && option === 'template') {
-                    //template only from configOpts:
-                    //configOptions[option] = Handlebars.templates[configOptions[option]];
-
                     //template from configOpts unless item.template exists:
                     configOptions[option] = this.getItemTemplate(items, configOptions[option]);
                     optsHasTemplate = true;
                 }
             }
-            //TODO-clorenz What if _options doesn't exist? What if _options does exist but _options.template does not exist?
             if(_.isEmpty(configOptions)) {
-                console.log('configOptions doesn\'t exist');
                 configOptions['template'] = this.getItemTemplate(items, configOptions[option]);
             }
-
-            //if(!optsHasTemplate) {
-            //  var opts = this.model.get('_options');
-            //opts['template'] = '';
-            //}
             timeline.setOptions(configOptions);
         },
 
@@ -133,7 +123,7 @@ define(function(require) {
                 if(item.template) {
                     var template = Handlebars.templates[item.template];
                     return template(item);
-                } else if(templateFromConfigOpts !== "" && templateFromConfigOpts !== undefined) {
+                } else if(templateFromConfigOpts !== '' && templateFromConfigOpts !== undefined) {
                     var template = Handlebars.templates[templateFromConfigOpts];
                     return template(item);
                 } else if(item.content !== undefined) {
@@ -214,6 +204,8 @@ define(function(require) {
             }
         },
 
+        //TODO Improve check for setCompletionStatus: check to see if range of
+        // timeline has brought all data items into view.
         inview: function(event, visible, visiblePartX, visiblePartY) {
             if (visible) {
                 if (visiblePartY === 'top') {
@@ -233,6 +225,6 @@ define(function(require) {
         }
     });
 
-    Adapt.register("visTimeline", VisTimeline);
+    Adapt.register('visTimeline', VisTimeline);
 
 });
