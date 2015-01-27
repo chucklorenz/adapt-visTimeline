@@ -1,8 +1,8 @@
 {
   "name": "adapt-visTimeline",
-  "version": "1.1.2",
+  "version": "0.0.1",
   "description": "A timeline component",
-  "main": "",
+  "main": "js/adapt-visTimeline.js",
   "scripts": {
     "test": "./node_modules/.bin/karma start --single-run --browsers PhantomJS"
   },
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git://github.com/chucklorenz/adapt-visTimeline.git"
   },
-  "author": "AdaptLearning",
+  "author": "Chuck Lorenz",
   "license": "GPL v3",
   "bugs": {
     "url": "https://github.com/chucklorenz/adapt-visTimeline/issues"
