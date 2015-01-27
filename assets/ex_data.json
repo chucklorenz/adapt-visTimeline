@@ -1,5 +1,5 @@
 [
-    {"id": "A", "content": "Period A", "start": "2014-01-16", "end": "2014-01-22", "type": "background", "style": "background-color: rgba(255, 0, 0, 0.2)"},
+    {"id": "A", "content": "Period A (background)", "start": "2014-01-16", "end": "2014-01-22", "type": "background", "style": "background-color: rgba(255, 0, 0, 0.2)"},
     {"id": 1, "content": "item 1 (box)", "start": "2014-01-18"},
     {"id": 2, "content": "item 2 (range)", "start": "2014-01-19", "end": "2014-01-24"},
     {"id": 3, "content": "item 3", "start": "2014-01-21"},

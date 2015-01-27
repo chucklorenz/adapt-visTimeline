@@ -42,28 +42,15 @@ define(function(require) {
             //build container, options, data, groups
             var container = document.getElementById('visualization'); // code fails if jQuery is used here
             var modelItems = this.model.get('_items');
-            //this.validateItemsForVisTimeline(modelItems);
-            /*var options = this.model.has('_options')
-             ? this.validateOptionsForVisTimeline(this.model.get('_options')) //parameter must be moved into function
-             : undefined;*/
-            /*var groups = this.model.has('_groups')
-             ? this.validateGroupsForVisTimeline() //parameter must be moved into function
-             : undefined;*/
             if (this.model.has('_items-url') && this.model.get('_items-url')!=='') {
                 this.loadExternalData(container, this.model.get('_items-url'));
             } else {
                 this.loadModelData(container, modelItems);
             }
-
         },
-
 
         loadModelData: function(container, data) {
             this.validateItemsForVisTimeline(data);
-            /*var options = this.validateConfigOptsForVisTimeline(data);
-             var myTimeline = new vis.Timeline(container, data, options);
-             this.validateGroupsForVisTimeline(myTimeline);*/
-
             var myTimeline = new vis.Timeline(container, data);
             this.validateConfigOptsForVisTimeline(data, myTimeline);
             this.validateGroupsForVisTimeline(myTimeline);
@@ -116,7 +103,6 @@ define(function(require) {
             var optsHasTemplate = false;
             for(var option in configOptions) {
                 if (configOptions.hasOwnProperty(option) && configOptions[option] == '') {
-                    //console.log("To be deleted Key: "+option+"; value: "+configOptions[option]);
                     delete configOptions[option];
                 }
                 if (configOptions.hasOwnProperty(option) && option === 'template') {
@@ -212,7 +198,6 @@ define(function(require) {
                 });
                 timeline.setGroups(groups);
             }
-
         },
 
         // Used to check if the text should reset on revisit
@@ -245,7 +230,6 @@ define(function(require) {
                 }
             }
         }
-
     });
 
     Adapt.register("visTimeline", VisTimeline);
