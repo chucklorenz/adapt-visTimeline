@@ -36,18 +36,18 @@ Other options include the following:
 [Configurable settings](http://visjs.org/docs/timeline.html#Configuration_Options) are explained in more detail on the [vis.js website](http://visjs.org/docs/timeline.html#Configuration_Options).
 
 ###Item data and data source
-####Item data
-Item data is governed by the properties specified by [vis.js documentation](http://visjs.org/docs/timeline.html#Items). Some item properties are required: `start` and `content`. (`content` may be omitted if a template is employed that does not require it.) An item may have data elements in addition to those specified by vis.js. A custom item template must be provided in order to display these extra data.
+>####Item data
+>Item data is governed by the properties specified by [vis.js documentation](http://visjs.org/docs/timeline.html#Items). Some item properties are required: `start` and `content`. (`content` may be omitted if a template is employed that does not require it.) An item may have data elements in addition to those specified by vis.js. A custom item template must be provided in order to display these extra data.
 
-####Data source
-Data in the json format can be supplied in either the component model (*components.json*) or in a separate json file. They cannot be supplied in both. Item data that appear in *components.json* will be ignored if a value for `_items-url` (the path to the json data file) is provided in the component model. The name of an external data file is arbitrary but must include the .json extension.
+>####Data source
+>Data in the json format can be supplied in either the component model (*components.json*) or in a separate json file. They cannot be supplied in both. Item data that appear in *components.json* will be ignored if a value for `_items-url` (the path to the json data file) is provided in the component model. The name of an external data file is arbitrary but must include the .json extension.
 
 ###Group data and data source
-####Group data
-Group data is governed by the properties specified by [vis.js documentation](http://visjs.org/docs/timeline.html#groups). Groups are optional. If groups are used, an item will display only if a reference to a group id is present in the item properties (e.g., `"group": 1`). Some group properties are required: `id` and `content`.
+>####Group data
+>Group data is governed by the properties specified by [vis.js documentation](http://visjs.org/docs/timeline.html#groups). Groups are optional. If groups are used, an item will display only if a reference to a group id is present in the item properties (e.g., `"group": 1`). Some group properties are required: `id` and `content`.
 
-####Data source
-Data in the json format can be supplied in either the component model (*components.json*) or in a separate json file. They cannot be supplied in both. Groups data that appear in *components.json* will be ignored if a value for `_groups-url` (the path to the json data file) is provided in the component model. The name of an external data file is arbitrary but must include the .json extension.
+>####Data source
+>Data in the json format can be supplied in either the component model (*components.json*) or in a separate json file. They cannot be supplied in both. Groups data that appear in *components.json* will be ignored if a value for `_groups-url` (the path to the json data file) is provided in the component model. The name of an external data file is arbitrary but must include the .json extension.
 
 ###Item template
 A [template handler](http://visjs.org/docs/timeline.html#Templates) has been provided. When no value for `template` is provided either in the `_options` or in the item's properties, the item's `content` will be displayed with default styling. When a value for `template` is provided for `_options`, the template will be applied to all items. A template can be assigned to a specific item by specifying the template in the item's properties. The item's template will override the template specified in `_options`. The name of a template file is arbitrary but must include the extension. (The *templates/visTimeline.hbs* file should not be deleted.)
@@ -76,17 +76,17 @@ The `displayTitle`, `title`,  `body`, and `instruction` settings are optional an
 
 All acceptable options are specified by the [visjs.org documentation]((http://visjs.org/docs/timeline.html#Configuration_Options)) for the Timeline module. Options must match the spelling found in visjs.org documentation as they are passed directly to the code library. `_options` is not required, but its use is encouraged. Only several common properties are highlighted here.
 
-#####width and height
+>#####width and height
 
-`width` and `height` are strings whose units may be either "%" or "px". It is recommended that the developer begin with `"width": "100%"`.
+>`width` and `height` are strings whose units may be either "%" or "px". It is recommended that the developer begin with `"width": "100%"`.
 
-#####margin
+>#####margin
 
-The `margin` represents the minimal number of pixels that will separate item boxes from the timeline axis and adjacent item boxes from each other. Defaults are a minimum of 20px from the timeline axis and a minimum of 10px between items.
+>The `margin` represents the minimal number of pixels that will separate item boxes from the timeline axis and adjacent item boxes from each other. Defaults are a minimum of 20px from the timeline axis and a minimum of 10px between items.
 
-#####template
+>#####template
 
-`template` is the name of the template file without any extension (eg., .html, .hbs). No path is needed if the file (with extension) is placed in the XXXX directory. This template will be applied to all data items unless another template is specified in the item properties. The item's `template` will override the option's `template`. If no `template` is specified in `_options`, the item's `content` will be rendered with default styling.
+>`template` is the name of the template file without any extension (eg., .html, .hbs). No path is needed if the file (with extension) is placed in the XXXX directory. This template will be applied to all data items unless another template is specified in the item properties. The item's `template` will override the option's `template`. If no `template` is specified in `_options`, the item's `content` will be rendered with default styling.
 
 ####_items-url
 
@@ -96,25 +96,25 @@ The `margin` represents the minimal number of pixels that will separate item box
 
 Items data may be specified in one of two places: in `_items-url` in *components.json* or as a separate JSON file. The item properties are the same regardless of which technique is used. All [item properties](http://visjs.org/docs/timeline.html#Items) are documented on the visjs.org website. Item properties must match the spelling found in visjs.org documentation as they are passed directly to the code library. Not all properties are described here.
 
-#####start and end
+>#####start and end
 
-`start` and `end` determine the range of an item. Only `start` is required. Both properties require a date string. [Acceptable date formats](http://chuck supply URL) are described in vis.js documentation. (What about Moment.js??) Neither date is presented by default, but are used to determine placement on the timeline. If the dates need to be presented within the item box, a custom template must be supplied.
+>`start` and `end` determine the range of an item. Only `start` is required. Both properties require a date string. [Acceptable date formats](http://chuck supply URL) are described in vis.js documentation. (What about Moment.js??) Neither date is presented by default, but are used to determine placement on the timeline. If the dates need to be presented within the item box, a custom template must be supplied.
 
-#####content
+>#####content
 
-`content` is a string that will be presented within the item box. HTML is acceptable.
+>`content` is a string that will be presented within the item box. HTML is acceptable.
 
-#####type
+>#####type
 
-`type` is a string that determines the item's relationship to the timeline. Acceptable values are `box`, `range`, `point`, and `background`. `box` is the default.  If undefined, the component will auto detect the type from the item's data: if both `start` and `end` are present, a `range` will be created, otherwise, a `box` is created. `point` and `background` must be specified explicitly.
+>`type` is a string that determines the item's relationship to the timeline. Acceptable values are `box`, `range`, `point`, and `background`. `box` is the default.  If undefined, the component will auto detect the type from the item's data: if both `start` and `end` are present, a `range` will be created, otherwise, a `box` is created. `point` and `background` must be specified explicitly.
 
-#####template
+>#####template
 
-`template` is the name of the template file without any extension (eg., .html, .hbs). No path is needed if the file (with extension) is placed in the XXXX directory.`template` is optional. The template specified here will override any template that is specified in `_options`. It is possible for each item to have its own template.
+>`template` is the name of the template file without any extension (eg., .html, .hbs). No path is needed if the file (with extension) is placed in the XXXX directory.`template` is optional. The template specified here will override any template that is specified in `_options`. It is possible for each item to have its own template.
 
-#####group
+>#####group
 
-The use of groups is optional. However, if a value is present for `_groups` or `_groups-url`, the item's `group` property must reference an `id` of one of the groups. If it does not, it will not be displayed in the timeline.
+>The use of groups is optional. However, if a value is present for `_groups` or `_groups-url`, the item's `group` property must reference an `id` of one of the groups. If it does not, it will not be displayed in the timeline.
 
 ####_groups-url
 
@@ -124,13 +124,13 @@ The use of groups is optional. However, if a value is present for `_groups` or `
 
 Groups data may be specified in one of two places: in `_groups-url` in *components.json* or as a separate JSON file. The group properties are the same regardless of which technique is used. All [group properties](http://visjs.org/docs/timeline.html#groups) are documented on the visjs.org website. Group properties must match the spelling found in visjs.org documentation as they are passed directly to the code library. Not all properties are described here.
 
-#####id
+>#####id
 
-The `id` is a string or a number that is referenced by those items that belong to the group. The value of the group's `id` matches the member item's `group` value.
+>The `id` is a string or a number that is referenced by those items that belong to the group. The value of the group's `id` matches the member item's `group` value.
 
-#####content
+>#####content
 
-`content` is the group's label that appears in the widget.
+>`content` is the group's label that appears in the widget.
 
 ##Examples
 Example data and templates are included within the source code. All are prefaced with `ex_`. Data files are found in the `assets` directory. Templates are found in the `templates` directory. These should be deleted when no longer needed.
