@@ -11,7 +11,7 @@ define(function(require) {
     var ComponentView = require('coreViews/componentView');
     var Adapt = require('coreJS/adapt');
     //var vis = require('components/adapt-timeline/js/vis/dist/vis.min'); // works alone but is bloated
-    var vis = require('components/adapt-timeline/js/vis-timeline'); // Contains moment, but I can't figure out how to call it. Consider rebundling to remove moment.
+    var vis = require('components/adapt-timeline/js/vis-timeline_3_9_1'); // Contains moment, but I can't figure out how to call it. Consider rebundling to remove moment.
     //var moment = require('components/adapt-timeline/js/moment.min');
     //var itemTemplate = Handlebars.templates['ex_visTimelineItem'];
 
