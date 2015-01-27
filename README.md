@@ -4,6 +4,8 @@ An adapt timeline component that displays items positioned chronologically along
 
 The component incorporates the [vis.js](http://visjs.org/index.html#modules) Timeline module (v3.9.1). Vis.js is dual licensed under both [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0) and [MIT](http://opensource.org/licenses/MIT).
 
+![An example of a timeline component.](https://github.com/chucklorenz/adapt-visTimeline/raw/master/assets/ex_timeline.png "example timeline")
+
 ##Installation
 
 First, be sure to install the [Adapt Command Line Interface](https://github.com/adaptlearning/adapt-cli), then from the command line run:-

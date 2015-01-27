@@ -213,9 +213,20 @@
     padding: 5px;
 }
 
+.vis.timeline .item {
+    position: absolute;
+    color: @font-color;
+    border-color: @item-border-color;
+    border-width: 1px;
+    background-color: lighten(@item-color, 25%);
+    display: inline-block;
+    padding: 5px;
+}
+
 .vis.timeline .item.selected {
-    border-color: #FFC200;
-    background-color: #FFF785;
+    border-color: @item-border-selected-color;
+    background-color: @item-selected-color;
+    color: #fff;
 
     /* z-index must be higher than the z-index of custom time bar and current time bar */
     z-index: 2;
@@ -226,7 +237,8 @@
 }
 
 .vis.timeline .item.point.selected {
-    background-color: #FFF785;
+    background-color: @item-selected-color;
+    color: #fff;
 }
 
 .vis.timeline .item.box {
@@ -256,7 +268,7 @@
 .vis.timeline .item.background {
     overflow: hidden;
     border: none;
-    background-color: rgba(213, 221, 246, 0.4);
+    background-color: rgba(204,204,204,0.4);
     box-sizing: border-box;
     padding: 0;
     margin: 0;

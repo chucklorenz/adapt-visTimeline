@@ -15,6 +15,7 @@
         "margin": {
             "item": 20
         },
+        "showCurrentTime": false,
         "template": "visTimelineItem"
     },
     "_items-url": "assets/dataForTemplate.json",
