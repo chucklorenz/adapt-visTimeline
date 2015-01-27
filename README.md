@@ -147,3 +147,9 @@ The vis.js timeline module has many features. Not all have been tested with this
 
 This component has not been tested against the standard Adapt browser specification. According to the [visjs.org website](http://visjs.org/docs/index.html): "Vis.js runs fine on Chrome, Firefox, Opera, Safari, IE9+, and most mobile browsers (with full touch support)."
 
+##Licenses
+
+Adapt and adapt-visTimeline licensed under [GPL3](http://github.com/adaptlearning/adapt_framework/blob/master/LICENSE).
+
+Vis.js is dual licensed under both [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0) and [MIT](http://opensource.org/licenses/MIT).
+
