@@ -1,6 +1,6 @@
 {
     "_type":"component",
-    "_component":"timeline",
+    "_component":"visTimeline",
     "attributes":[
         {
             "_id":"string",

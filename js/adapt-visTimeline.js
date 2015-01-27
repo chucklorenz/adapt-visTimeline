@@ -1,11 +1,12 @@
 /*
- * adapt-timeline
- * License - http://github.com/adaptlearning/adapt_framework/blob/master/LICENSE
- * Maintainers - Daryl Hedley <darylhedley@hotmail.com>, Brian Quinn <brian@learningpool.com>
+ * adapt-visTimeline
+ * Adapt License - http://github.com/adaptlearning/adapt_framework/blob/master/LICENSE
+ * Vis.js is dual licensed under both Apache 2.0(http://www.apache.org/licenses/LICENSE-2.0)
+ * and MIT(http://opensource.org/licenses/MIT).
+ * Maintainer - Chuck Lorenz <chucklorenz@yahoo.com>
  */
 define(function(require) {
 
-    //TODO-clorenz Add Group functionality a la configOptions; then refactor loadXXXData functions
     //TODO-clorenz Add navigation buttons as a default
 
     var ComponentView = require('coreViews/componentView');

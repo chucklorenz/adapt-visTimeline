@@ -1,7 +1,8 @@
 #adapt-visTimeline
 
-An adapt timeline component incorporating the [vis.js](http://visjs.org/index.html#modules) Timeline module. This component displays items positioned chronologically along a timeline. As with most Adapt components, it may be preceded by title, body text, and instruction elements.
+An adapt timeline component that displays items positioned chronologically along a marked axis. As with most Adapt components, it may be preceded by title, body text, and instruction elements.
 
+The component incorporates the [vis.js](http://visjs.org/index.html#modules) Timeline module (v3.9.1). Vis.js is dual licensed under both [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0) and [MIT](http://opensource.org/licenses/MIT).
 
 ##Installation
 

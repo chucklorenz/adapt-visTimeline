@@ -1,17 +1,17 @@
 {
-  "name": "adapt-timeline",
-  "version": "1.1.2",
-  "homepage": "https://github.com/darylhedley/adapt-visTimeline",
-  "authors": [
-    "Daryl Hedley <darylhedley@hotmail.com>"
-  ],
-  "displayName" : "VisTimeline",
-  "component" : "visTimeline",
-  "description": "A timeline component",
-  "main": "/js/adapt-visTimeline.js",
-  "keywords": [
-    "adapt-plugin",
-    "adapt-component"
-  ],
-  "license": "GPLv3"
+    "name": "adapt-visTimeline",
+    "version": "1.1.2",
+    "homepage": "https://github.com/chucklorenz/adapt-visTimeline",
+    "authors": [
+        "Chuck Lorenz <chucklorenz@yahoo.com>"
+    ],
+    "displayName" : "VisTimeline",
+    "component" : "visTimeline",
+    "description": "A timeline component",
+    "main": "/js/adapt-visTimeline.js",
+    "keywords": [
+        "adapt-plugin",
+        "adapt-component"
+    ],
+    "license": "GPLv3"
 }
