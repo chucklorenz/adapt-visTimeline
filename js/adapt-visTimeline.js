@@ -7,15 +7,18 @@
  */
 define(function(require) {
 
-    //TODO-clorenz Add navigation buttons as a default
-
     var ComponentView = require('coreViews/componentView');
     var Adapt = require('coreJS/adapt');
-    var vis = require('components/adapt-visTimeline/js/vis-timeline_3_9_1'); // Contains moment, but I can't figure out how to call it. Consider rebundling to remove moment.
-    //var moment = require('components/adapt-timeline/js/moment.min');
+    var vis = require('components/adapt-visTimeline/js/vis-timeline_3_9_1');
+    //var moment = require('components/adapt-visTimeline/js/moment.min');
     //var itemTemplate = Handlebars.templates['ex_visTimelineItem'];
+    var myTimeline;
 
     var VisTimeline = ComponentView.extend({
+
+        events: {
+            'click .visTimeline-controls': 'onNavigationClicked'
+        },
 
         preRender: function() {
             // Checks to see if the text should be reset on revisit
@@ -51,10 +54,10 @@ define(function(require) {
         },
 
         loadModelData: function(container, data) {
-            this.validateItemsForVisTimeline(data);
-            var myTimeline = new vis.Timeline(container, data);
-            this.validateConfigOptsForVisTimeline(data, myTimeline);
-            this.validateGroupsForVisTimeline(myTimeline);
+            this.validateDataItems(data);
+            myTimeline = new vis.Timeline(container, data);
+            this.validateConfigOpts(data, myTimeline);
+            this.validateGroups(myTimeline);
         },
 
         loadExternalData: function(container, url) {
@@ -63,11 +66,11 @@ define(function(require) {
                 url: url,
                 context: this,
                 success: function (data) {
-                    this.validateItemsForVisTimeline(data);
+                    this.validateDataItems(data);
                     var items = new vis.DataSet(data);
                     myTimeline = new vis.Timeline(container, items);
-                    this.validateConfigOptsForVisTimeline(data, myTimeline);
-                    this.validateGroupsForVisTimeline(myTimeline);
+                    this.validateConfigOpts(data, myTimeline);
+                    this.validateGroups(myTimeline);
                 },
                 error: function (err) {
                     console.log('Error', err);
@@ -81,7 +84,7 @@ define(function(require) {
             });
         },
 
-        validateItemsForVisTimeline: function(items) {
+        validateDataItems: function(items) {
             //Vis.js documentation says these properties are not required:
             var optionalItems = ['classname', 'end', 'group', 'id', 'style', 'subgroup', 'title'];
             // check model items for any of vis.js's optional properties
@@ -99,32 +102,22 @@ define(function(require) {
             });
         },
 
-        validateConfigOptsForVisTimeline: function(items, timeline) {
+        validateConfigOpts: function(items, timeline) {
             var configOptions = this.model.get('_options') || {};
             var optsHasTemplate = false;
             for(var option in configOptions) {
-                if (configOptions.hasOwnProperty(option) && configOptions[option] == '') {
+                if (configOptions.hasOwnProperty(option) && configOptions[option] === '') {
                     delete configOptions[option];
                 }
                 if (configOptions.hasOwnProperty(option) && option === 'template') {
-                    //template only from configOpts:
-                    //configOptions[option] = Handlebars.templates[configOptions[option]];
-
                     //template from configOpts unless item.template exists:
                     configOptions[option] = this.getItemTemplate(items, configOptions[option]);
                     optsHasTemplate = true;
                 }
             }
-            //TODO-clorenz What if _options doesn't exist? What if _options does exist but _options.template does not exist?
             if(_.isEmpty(configOptions)) {
-                console.log('configOptions doesn\'t exist');
                 configOptions['template'] = this.getItemTemplate(items, configOptions[option]);
             }
-
-            //if(!optsHasTemplate) {
-            //  var opts = this.model.get('_options');
-            //opts['template'] = '';
-            //}
             timeline.setOptions(configOptions);
         },
 
@@ -133,7 +126,7 @@ define(function(require) {
                 if(item.template) {
                     var template = Handlebars.templates[item.template];
                     return template(item);
-                } else if(templateFromConfigOpts !== "" && templateFromConfigOpts !== undefined) {
+                } else if(templateFromConfigOpts !== '' && templateFromConfigOpts !== undefined) {
                     var template = Handlebars.templates[templateFromConfigOpts];
                     return template(item);
                 } else if(item.content !== undefined) {
@@ -145,7 +138,7 @@ define(function(require) {
             return template;
         },
 
-        validateGroupsForVisTimeline: function(timeline) {
+        validateGroups: function(timeline) {
             //console.log('before groups is validated:');
             //var dataCopy = jQuery.extend(true, {}, groups);
             //console.log(dataCopy);
@@ -201,6 +194,24 @@ define(function(require) {
             }
         },
 
+        onNavigationClicked: function(event) {
+            event.preventDefault();
+            if ($(event.currentTarget).hasClass('visTimeline-control-right')) {
+                this.moveTimeline(-0.2);
+            } else if ($(event.currentTarget).hasClass('visTimeline-control-left')) {
+                this.moveTimeline(0.2);
+            }
+        },
+
+        moveTimeline: function (percentage) {
+            var range = myTimeline.getWindow();
+            var interval = range.end - range.start;
+            myTimeline.setWindow({
+                start: range.start.valueOf() - interval * percentage,
+                end: range.end.valueOf() - interval * percentage
+            })
+        },
+
         // Used to check if the text should reset on revisit
         checkIfResetOnRevisit: function() {
             var isResetOnRevisit = this.model.get('_isResetOnRevisit');
@@ -214,6 +225,8 @@ define(function(require) {
             }
         },
 
+        //TODO Improve check for setCompletionStatus: check to see if range of
+        // timeline has brought all data items into view.
         inview: function(event, visible, visiblePartX, visiblePartY) {
             if (visible) {
                 if (visiblePartY === 'top') {
@@ -233,6 +246,6 @@ define(function(require) {
         }
     });
 
-    Adapt.register("visTimeline", VisTimeline);
+    Adapt.register('visTimeline', VisTimeline);
 
 });

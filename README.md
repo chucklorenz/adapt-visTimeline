@@ -4,6 +4,8 @@ An adapt timeline component that displays items positioned chronologically along
 
 The component incorporates the [vis.js](http://visjs.org/index.html#modules) Timeline module (v3.9.1). Vis.js is dual licensed under both [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0) and [MIT](http://opensource.org/licenses/MIT).
 
+![An example of a timeline component.](https://github.com/chucklorenz/adapt-visTimeline/raw/master/assets/ex_timeline.png "example timeline")
+
 ##Installation
 
 First, be sure to install the [Adapt Command Line Interface](https://github.com/adaptlearning/adapt-cli), then from the command line run:-
@@ -52,7 +54,6 @@ Other options include the following:
 ###Item template
 A [template handler](http://visjs.org/docs/timeline.html#Templates) has been provided. When no value for `template` is provided either in the `_options` or in the item's properties, the item's `content` will be displayed with default styling. When a value for `template` is provided for `_options`, the template will be applied to all items. A template can be assigned to a specific item by specifying the template in the item's properties. The item's template will override the template specified in `_options`. The name of a template file is arbitrary but must include the extension. (The *templates/visTimeline.hbs* file should not be deleted.)
 
-//TODO: Address where to place template and how to account for template path, if necessary.
 
 ##Settings overview
 
@@ -86,11 +87,11 @@ All acceptable options are specified by the [visjs.org documentation]((http://vi
 
 >#####template
 
->`template` is the name of the template file without any extension (eg., .html, .hbs). No path is needed if the file (with extension) is placed in the XXXX directory. This template will be applied to all data items unless another template is specified in the item properties. The item's `template` will override the option's `template`. If no `template` is specified in `_options`, the item's `content` will be rendered with default styling.
+>`template` is the name of the template file without any extension (eg., .html, .hbs). No path is needed if the file (with extension) is placed in the *templates* directory. This template will be applied to all data items unless another template is specified in the item properties. The item's `template` will override the option's `template`. If no `template` is specified in `_options`, the item's `content` will be rendered with default styling.
 
 ####_items-url
 
-`_items-url` is optional. If it is not used, the component will look for item data within its model specified in *components.json*. Item data, however, may be supplied in an external file. `_items-url` specifies the name of the json file (including the extension) that supplies the item data. No path is needed if the file is placed in the XXXX directory. Both techniques cannot be used simultaneously. If a value is present for `_items-url`, the component will ignore any item data in *components.json*.
+`_items-url` is optional. If it is not used, the component will look for item data within its model specified in *components.json*. Item data, however, may be supplied in an external file. `_items-url` specifies the name of the json file (including the extension) that supplies the item data. No path is needed if the file is placed in the *assets* directory. Both techniques cannot be used simultaneously. If a value is present for `_items-url`, the component will ignore any item data in *components.json*.
 
 ####_items
 
@@ -110,7 +111,7 @@ Items data may be specified in one of two places: in `_items-url` in *components
 
 >#####template
 
->`template` is the name of the template file without any extension (eg., .html, .hbs). No path is needed if the file (with extension) is placed in the XXXX directory.`template` is optional. The template specified here will override any template that is specified in `_options`. It is possible for each item to have its own template.
+>`template` is the name of the template file without any extension (eg., .html, .hbs). No path is needed if the file (with extension) is placed in the *templates* directory.`template` is optional. The template specified here will override any template that is specified in `_options`. It is possible for each item to have its own template.
 
 >#####group
 
@@ -118,7 +119,7 @@ Items data may be specified in one of two places: in `_items-url` in *components
 
 ####_groups-url
 
-`_groups-url` is optional. `_groups-url` specifies the name of the json file (including the extension) that supplies the groups data. No path is needed if the file is placed in the XXXX directory. If it is not used, the component will look for groups data within its model specified in *components.json*; but this, too, is optional. Both techniques cannot be used simultaneously. If a value is present for `_groups-url`, the component will ignore any groups data in *components.json*.
+`_groups-url` is optional. `_groups-url` specifies the name of the json file (including the extension) that supplies the groups data. No path is needed if the file is placed in the *assets* directory. If it is not used, the component will look for groups data within its model specified in *components.json*; but this, too, is optional. Both techniques cannot be used simultaneously. If a value is present for `_groups-url`, the component will ignore any groups data in *components.json*.
 
 ####_groups
 
@@ -146,4 +147,16 @@ The vis.js timeline module has many features. Not all have been tested with this
 ##Browser spec
 
 This component has not been tested against the standard Adapt browser specification. According to the [visjs.org website](http://visjs.org/docs/index.html): "Vis.js runs fine on Chrome, Firefox, Opera, Safari, IE9+, and most mobile browsers (with full touch support)."
+
+##To Do
+
+- Improve LESS to better match Adapt standards.
+- Review accessibility.
+- Test what directories (templates? assets?) are accessible to users in the authoring tool.
+
+##Licenses
+
+Adapt and adapt-visTimeline licensed under [GPL3](http://github.com/adaptlearning/adapt_framework/blob/master/LICENSE).
+
+Vis.js is dual licensed under both [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0) and [MIT](http://opensource.org/licenses/MIT).
 
