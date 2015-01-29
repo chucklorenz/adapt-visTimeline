@@ -13,5 +13,8 @@
         "adapt-plugin",
         "adapt-component"
     ],
+    "ignore": [
+        "/assets/ex_timeline.png"
+    ],
     "license": "GPLv3"
 }
