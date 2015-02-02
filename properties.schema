@@ -4,13 +4,109 @@
   "id": "http://jsonschema.net",
   "$ref": "http://localhost/plugins/content/component/model.schema",
   "properties":{
-  	"instruction": {
-  		"type": "string",
-  		"required": false,
-  		"default": "",
-  		"inputType": "Text",
-  		"validators": [],
-  		"help": "This is the instruction text"
-		}
+    "_supportedLayout": {
+      "type": "string",
+      "required": true,
+      "enum": ["full-width", "half-width", "both"],
+      "default": "half-width",
+      "editorOnly": true
+    },
+    "instruction": {
+      "type": "string",
+      "required": false,
+      "default": "",
+      "inputType": "Text",
+      "validators": [],
+      "help": "This is the instruction text"
+    },
+    "_options": {
+      "type":"array",
+      "required":true,
+      "title": "Options",
+      "properties":{
+        "width": {
+          "type":"string",
+          "required":true,
+          "default": "",
+          "title": "Timeline Window Width",
+          "inputType": "Text",
+          "validators": [],
+          "help": "A number followed by '%' or 'px', (e.g., '100%')"
+        },
+        "height": {
+          "type":"string",
+          "required":true,
+          "default": "",
+          "title": "Timeline Window Height",
+          "inputType": "Text",
+          "validators": [],
+          "help": "A number followed by '%' or 'px', (e.g., '100%')"
+        },
+        "showCurrentTime": {
+          "type":"boolean",
+          "required":true,
+          "default": "",
+          "title": "Show Current Time",
+          "inputType": {"type": "Boolean", "options": [true, false]},
+          "validators": [],
+          "help": "When set to 'true', a vertical line will be displayed indicating the current time"
+        },
+        "template": {
+          "type":"string",
+          "required":true,
+          "default": "",
+          "title": "Default Template",
+          "inputType": "Text",
+          "validators": [],
+          "help": "The name of the template (excluding the file extension) that will be applied to all items."
+        }
+      }
+    },
+    "_items": {
+      "type":"array",
+      "required":true,
+      "title": "Items",
+      "items": {
+        "type":"object",
+        "required":true,
+        "properties":{
+          "id": {
+            "type":"string",
+            "required":true,
+            "default": "",
+            "title": "Item ID",
+            "inputType": "Text",
+            "validators": [],
+            "help": "Numbers or letters that uniquely identify this item."
+          },
+          "content": {
+            "type":"string",
+            "required":true,
+            "default": "",
+            "title": "Item Content",
+            "inputType": "TextArea",
+            "validators": ["required"],
+            "help": "Plain text or HTML that will display as the item text."
+          },
+          "start": {
+            "type":"string",
+            "required":true,
+            "title": "Item Start",
+            "inputType": "Text",
+            "validators": [],
+            "help": "Requires a date/time format compatible with vis.js"
+          },
+          "end": {
+            "type":"string",
+            "required":false,
+            "default": "",
+            "title": "Item End",
+            "inputType": "Text",
+            "validators": [],
+            "help": "If used, requires a date/time format compatible with vis.js"
+          }
+        }
+      }
+    }
   }
 }
