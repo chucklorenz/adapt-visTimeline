@@ -149,7 +149,7 @@
               "title": "Group",
               "inputType": "Text",
               "validators": [],
-              "help": "If used, requires a date/time format compatible with vis.js"
+              "help": "If the Groups option is used, this specifies which group this item belongs to"
             },
             "subgroup": {
               "type":"string",
