@@ -21,12 +21,12 @@
     },
     "_options": {
       "type":"array",
-      "required":true,
+      "required":false,
       "title": "Options",
       "properties":{
         "width": {
           "type":"string",
-          "required":true,
+          "required":false,
           "default": "",
           "title": "Timeline Window Width",
           "inputType": "Text",
@@ -35,7 +35,7 @@
         },
         "height": {
           "type":"string",
-          "required":true,
+          "required":false,
           "default": "",
           "title": "Timeline Window Height",
           "inputType": "Text",
@@ -44,7 +44,7 @@
         },
         "showCurrentTime": {
           "type":"boolean",
-          "required":true,
+          "required":false,
           "default": "",
           "title": "Show Current Time",
           "inputType": {"type": "Boolean", "options": [true, false]},
@@ -53,12 +53,12 @@
         },
         "template": {
           "type":"string",
-          "required":true,
+          "required":false,
           "default": "",
           "title": "Default Template",
-          "inputType": "Text",
+          "inputType": "Asset:other",
           "validators": [],
-          "help": "The name of the template (excluding the file extension) that will be applied to all items."
+          "help": "The name of the template (excluding the file extension) that will be applied to all items"
         }
       }
     },
@@ -66,45 +66,100 @@
       "type":"array",
       "required":true,
       "title": "Items",
-      "items": {
-        "type":"object",
-        "required":true,
+      "item": {
+        "type": "object",
+        "required": true,
+        "title": "Item",
         "properties":{
-          "id": {
-            "type":"string",
-            "required":true,
-            "default": "",
-            "title": "Item ID",
-            "inputType": "Text",
-            "validators": [],
-            "help": "Numbers or letters that uniquely identify this item."
-          },
-          "content": {
-            "type":"string",
-            "required":true,
-            "default": "",
-            "title": "Item Content",
-            "inputType": "TextArea",
-            "validators": ["required"],
-            "help": "Plain text or HTML that will display as the item text."
-          },
-          "start": {
-            "type":"string",
-            "required":true,
-            "title": "Item Start",
-            "inputType": "Text",
-            "validators": [],
-            "help": "Requires a date/time format compatible with vis.js"
-          },
-          "end": {
-            "type":"string",
-            "required":false,
-            "default": "",
-            "title": "Item End",
-            "inputType": "Text",
-            "validators": [],
-            "help": "If used, requires a date/time format compatible with vis.js"
-          }
+            "id": {
+              "type":"string",
+              "required":true,
+              "default": "",
+              "title": "Item ID",
+              "inputType": "Text",
+              "validators": ["required"],
+              "help": "Numbers or letters that uniquely identify this item"
+            },
+            "content": {
+              "type":"string",
+              "required":true,
+              "default": "",
+              "title": "Content",
+              "inputType": "TextArea",
+              "validators": ["required"],
+              "help": "Plain text or HTML that will display as the item text"
+            },
+            "start": {
+              "type":"string",
+              "required":true,
+              "title": "Start",
+              "inputType": "Text",
+              "validators": ["required"],
+              "help": "Requires a date/time format compatible with vis.js"
+            },
+            "end": {
+              "type":"string",
+              "required":false,
+              "default": "",
+              "title": "End",
+              "inputType": "Text",
+              "validators": [],
+              "help": "Requires a date/time format compatible with vis.js"
+            },
+            "type": {
+              "type":"string",
+              "required":false,
+              "default": "box",
+              "title": "Item End",
+              "inputType": "{"type": "Enum", "options":["box","range","point","background"]}",
+              "validators": [],
+              "help": "Determines the basic display type of the item"
+            },
+            "template": {
+                "type":"string",
+                "required":false,
+                "default": "",
+                "title": "Template",
+                "inputType": "Asset:other",
+                "validators": [],
+                "help": "The name of the template (excluding the file extension) that will be applied to this single item"
+            },
+            "className": {
+              "type":"string",
+              "required":false,
+              "default": "",
+              "title": "ClassName",
+              "inputType": "Text",
+              "validators": [],
+              "help": "A CSS class used to style this single item"
+            },
+            "style": {
+              "type":"string",
+              "required":false,
+              "default": "",
+              "title": "Style",
+              "inputType": "TextArea",
+              "validators": [],
+              "help": "Text for a CSS inline style to be applied to this single item"
+            },
+            "group": {
+              "type":"string",
+              "required":false,
+              "default": "",
+              "title": "Group",
+              "inputType": "Text",
+              "validators": [],
+              "help": "If used, requires a date/time format compatible with vis.js"
+            },
+            "subgroup": {
+              "type":"string",
+              "required":false,
+              "default": "",
+              "title": "Subgroup",
+              "inputType": "Text",
+              "validators": [],
+              "help": "Used to order items within a subgroup. Must be used in conjunction with the subgroupOrder option for Groups. Reference documentation on Visjs.org"
+            }
         }
       }
     }
