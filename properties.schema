@@ -59,6 +59,16 @@
           "inputType": "Asset:other",
           "validators": [],
           "help": "The name of the template (excluding the file extension) that will be applied to all items"
+        },
+        "align": {
+          "type":"string",
+          "required":false,
+          "default": "auto",
+          "title": "Content Alignment",
+          "enum": ["auto", "center", "left", "right"],
+          "inputType": "{"type": "Select", "options":["auto", "center", "left", "right"]}",
+          "validators": [],
+          "help": "Alignment of items with type 'box', 'range', and 'background'. Available values are 'auto' (default), 'center', 'left', or 'right'. For 'box' items, the 'auto' alignment is 'center'. For 'range' items, the auto alignment is dynamic: positioned left and shifted such that the contents is always visible on screen."
         }
       }
     },
@@ -111,7 +121,8 @@
               "required":false,
               "default": "box",
               "title": "Item End",
-              "inputType": "{"type": "Enum", "options":["box","range","point","background"]}",
+              "enum": ["box", "range", "point", "background"],
+              "inputType": "{"type": "Select", "options":["box","range","point","background"]}",
               "validators": [],
               "help": "Determines the basic display type of the item"
             },
@@ -234,6 +245,42 @@
               "inputType": "Text",
               "validators": ["text"],
               "help": "Plain text that displays as a tool-tip when hovering over a group"
+            },
+            "autoResize": {
+              "type":"boolean",
+              "required": false,
+              "default": true,
+              "title": "Auto Resize",
+              "inputType": {"type": "Boolean", "options": [true, false]},
+              "validators": [],
+              "help": "If true, the Timeline will automatically detect when its HTML container is resized, and will redraw itself accordingly. Defaults to 'True'."
+            },
+            "clickToUse": {
+              "type":"boolean",
+              "required": false,
+              "default": false,
+              "title": "Click Timeline to Activate",
+              "inputType": {"type": "Boolean", "options": [true, false]},
+              "validators": [],
+              "help": "If set to true, the Timeline will respond to mouse and touch events only after clicking on it. Defaults to false."
+            },
+            "dataAttributes": {
+              "type":"array",
+              "required": false,
+              "default": "",
+              "title": "Data Attributes",
+              "inputType": "Text",
+              "validators": [],
+              "help": "An array of fields optionally defined on the Timeline items that will be appended as data- attributes to the DOM element of the items. If value is 'all' then each field defined on the Timeline item will become a data- attribute."
+            },
+            "end": {
+              "type":"array",
+              "required": false,
+              "default": "",
+              "title": "Range End",
+              "inputType": "Text",
+              "validators": [],
+              "help": "The initial end date for the axis of the Timeline. If not provided, the chronologically last date present in the items set is used as end date."
             }
 
         }
