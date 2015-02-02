@@ -149,7 +149,7 @@
               "title": "Group",
               "inputType": "Text",
               "validators": [],
-              "help": "If the Groups option is used, this specifies which group this item belongs to"
+              "help": "If the Groups option is used, this specifies which group this item belongs to. Must match one of the groups specified in the Groups options"
             },
             "subgroup": {
               "type":"string",
@@ -159,7 +159,83 @@
               "inputType": "Text",
               "validators": [],
               "help": "Used to order items within a subgroup. Must be used in conjunction with the subgroupOrder option for Groups. Reference documentation on Visjs.org"
+            },
+            "title": {
+              "type":"string",
+              "required":false,
+              "default": "",
+              "title": "Tooltip Tex",
+              "inputType": "Text",
+              "validators": ["text"],
+              "help": "Plain text that displays as a tool-tip when hovering over an item"
             }
+        }
+      }
+    },
+    "_groups": {
+      "type":"array",
+      "required":true,
+      "title": "Groups",
+      "group": {
+        "type": "object",
+        "required": false,
+        "title": "Group",
+        "properties":{
+            "id": {
+                "type": "string",
+                "required": true,
+                "default": "",
+                "title": "Group ID",
+                "inputType": "Text",
+                "validators": ["required"],
+                "help": "Numbers or letters that uniquely identify this group. All items with this ID will be grouped together"
+            },
+            "content": {
+                "type": "string",
+                "required": true,
+                "default": "",
+                "title": "content",
+                "inputType": "Text",
+                "validators":["required"],
+                "help": "Plain text or HTML that will display as the group's row header"
+            },
+            "className": {
+              "type":"string",
+              "required":false,
+              "default": "",
+              "title": "ClassName",
+              "inputType": "Text",
+              "validators": ["text"],
+              "help": "A CSS class used to style this single item"
+            },
+            "style": {
+              "type":"string",
+              "required":false,
+              "default": "",
+              "title": "ClassName",
+              "inputType": "Text",
+              "validators": [],
+              "help": "Text for a CSS inline style to be applied to this single item"
+            },
+            "subgroupOrder": {
+              "type":"string",
+              "required":false,
+              "default": "",
+              "title": "Subgroup Order",
+              "inputType": "Text",
+              "validators": [],
+              "help": "By default, groups are displayed in the order in which they are entered. Change this by entering the name of an item field by which they should be sorted or by entering a custom sort function"
+            },
+            "title": {
+              "type":"string",
+              "required":false,
+              "default": "",
+              "title": "Tooltip Text",
+              "inputType": "Text",
+              "validators": ["text"],
+              "help": "Plain text that displays as a tool-tip when hovering over a group"
+            }
+
         }
       }
     }
