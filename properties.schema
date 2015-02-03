@@ -15,6 +15,7 @@
        "type": "string",
        "required": false,
        "default": "",
+       "title": "Instruction",
        "inputType": "Text",
        "validators": [],
        "help": "This is the instruction text"
@@ -72,6 +73,15 @@
            "help": "Alignment of items with type 'box', 'range', and 'background'. Available values are 'auto' (default), 'center', 'left', or 'right'. For 'box' items, the 'auto' alignment is 'center'. For 'range' items, the auto alignment is dynamic: positioned left and shifted such that the contents is always visible on screen."
          }
        }
+     },
+     "_items-url":{
+       "type": "string",
+       "required": false,
+       "default": "",
+       "title": "External Item Data",
+       "inputType": "Asset:other",
+       "validators": [],
+       "help": "Optional. Select a file that contains item data."
      },
      "_items": {
        "type":"array",
@@ -184,6 +194,15 @@
          }
        }
      },
+     "_groups-url":{
+       "type": "string",
+       "required": false,
+       "default": "",
+       "title": "External Groups Data",
+       "inputType": "Asset:other",
+       "validators": [],
+       "help": "Optional. Select a file that contains groups data."
+      },
      "_groups": {
        "type":"array",
        "required":true,
