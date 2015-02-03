@@ -86,6 +86,7 @@
      "_items": {
        "type":"array",
        "required":true,
+       "minItems": 1,
        "title": "Items",
        "help": "At least one item is required. Review property descriptions at visjs.org.",
        "items": {
