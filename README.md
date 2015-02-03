@@ -91,7 +91,7 @@ All acceptable options are specified by the [visjs.org documentation]((http://vi
 
 ####_items-url
 
-`_items-url` is optional. If it is not used, the component will look for item data within its model specified in *components.json*. Item data, however, may be supplied in an external file. `_items-url` specifies the name of the json file (including the extension) that supplies the item data. No path is needed if the file is placed in the *assets* directory. Both techniques cannot be used simultaneously. If a value is present for `_items-url`, the component will ignore any item data in *components.json*.
+`_items-url` is optional. If it is not used, the component will look for item data within its model specified in *components.json*. Item data, however, may be supplied in an external file. `_items-url` specifies the name of the json file (including the extension) that supplies the item data. No path is needed if the file is uploaded via the Authoring tool's Asset Manager or if it is placed manually in the component's *assets* directory. Both techniques cannot be used simultaneously. If a value is present for `_items-url`, the component will ignore any item data in *components.json*.
 
 ####_items
 
@@ -119,7 +119,7 @@ Items data may be specified in one of two places: in `_items-url` in *components
 
 ####_groups-url
 
-`_groups-url` is optional. `_groups-url` specifies the name of the json file (including the extension) that supplies the groups data. No path is needed if the file is placed in the *assets* directory. If it is not used, the component will look for groups data within its model specified in *components.json*; but this, too, is optional. Both techniques cannot be used simultaneously. If a value is present for `_groups-url`, the component will ignore any groups data in *components.json*.
+`_groups-url` is optional. `_groups-url` specifies the name of the json file (including the extension) that supplies the groups data. No path is needed if the file is uploaded via the Authoring tool's Asset Manager or if it is placed manually in the component's *assets* directory. If `_groups-url` is not used, the component will look for groups data within its model specified in *components.json*; but this, too, is optional. Both techniques cannot be used simultaneously. If a value is present for `_groups-url`, the component will ignore any groups data in *components.json*.
 
 ####_groups
 
@@ -140,6 +140,8 @@ Example data and templates are included within the source code. All are prefaced
 
 The timeline displays horizontally. It does not have a vertical orientation. Consequently, prudence should be exercised in situations that require portrait display on small devices.
 
+Completion is based on the component coming into view. If items are outside the initial timeline range, "completion" cannot guarantee that all items have been viewed.
+
 Accessibility standards are not fully met.
 
 The vis.js timeline module has many features. Not all have been tested with this component.
@@ -152,7 +154,7 @@ This component has not been tested against the standard Adapt browser specificat
 
 - Improve LESS to better match Adapt standards.
 - Review accessibility.
-- Test what directories (templates? assets?) are accessible to users in the authoring tool.
+- Add option to base completion on all items having been viewed, not just the component coming into view.
 
 ##Licenses
 
