@@ -1,6 +1,6 @@
 {
   "name": "adapt-visTimeline",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "A timeline component",
   "main": "js/adapt-visTimeline.js",
   "scripts": {
