@@ -85,7 +85,7 @@ All acceptable options are specified by the [visjs.org documentation]((http://vi
 
 >The `margin` represents the minimal number of pixels that will separate item boxes from the timeline axis and adjacent item boxes from each other. Defaults are a minimum of 20px from the timeline axis and a minimum of 10px between items.
 
->#####template
+>##### template
 
 >`template` is the name of the template file without any extension (eg., .html, .hbs). No path is needed if the file (with extension) is placed in the *templates* directory. This template will be applied to all data items unless another template is specified in the item properties. The item's `template` will override the option's `template`. If no `template` is specified in `_options`, the item's `content` will be rendered with default styling.
 
